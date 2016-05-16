@@ -66,4 +66,32 @@ public class CatTest {
     assertEquals(0, Cat.all().size());
   }
 
+  // @Test
+  // public void addUser_addsAUserToThisCat() {
+  //   Cat newCat = new Cat("Appa", "Siamese");
+  //   newCat.save();
+  //   User firstUser = new User ("Pepe");
+  //   firstUser.save();
+  //   newCat.addUser(firstUser);
+  //   User secondUser = new User ("Pepe");
+  //   secondUser.save();
+  //   newCat.addUser(secondUser);
+  //   assertTrue(newCat.getUsers().contains(Array.asList()));
+  // }
+  // 
+  // @Test
+  // public void getUsers_getUsersLinkedToThisCat() {
+  //   Cat newCat = new Cat("Appa", "Siamese");
+  //   newCat.save();
+  //   User newUser = new User ("Pepe");
+  //   newUser.save();
+  //   newCat.addUser(newUser);
+  //   assertTrue(newCat.getUsers().getName == newUser.getName());
+  // }
+  //
+  // @Test
+  // public void getComments_getsCommentsLinkedToThisCat() {
+  //
+  // }
+
 }
