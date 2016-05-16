@@ -6,3 +6,9 @@
 .navbar .navbar-collapse {
     text-align: center;
 }
+
+/* ------------- INDEX.vtl----------- */
+ .col-xs-12 {
+  background-color: black;
+  color: white;
+}
