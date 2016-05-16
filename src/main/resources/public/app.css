@@ -8,7 +8,18 @@
 }
 
 /* ------------- INDEX.vtl----------- */
- .col-xs-12 {
+.sidebar {
   background-color: black;
   color: white;
+  height: 75em;
+}
+
+.imgFrontPage {
+  width: 100%;
+  height: 100%;
+}
+
+.navbarStyles {
+  color: white;
+  background-color: black;
 }
