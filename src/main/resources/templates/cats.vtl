@@ -30,7 +30,15 @@
   </div>
 </nav>
 <div class="container">
-#foreach ($cat in $cats)
-  <li><a href="/cats/cat.getId()">$cat.getName()</a>
-#end
+  <div class="row">
+    <div class="col-sm-3 sidebar">
+      <h1 class="text-center">Add Cat<h1>
+    </div>
+    <div class="col-sm-8">
+      <h2 class="text-center">CATZ</h2>
+      #foreach ($cat in $cats)
+        <li><a href="/cats/cat.getId()">$cat.getName()</a>
+      #end
+    </div>
+  </div>
 </div>
