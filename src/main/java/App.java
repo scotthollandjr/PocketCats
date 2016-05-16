@@ -15,7 +15,7 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-
+      model.put("cats", Cat.all());
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -28,8 +28,8 @@ public class App {
 
     get("/cat/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      // Cat cat = Cat.find(Integer.parseInt(request.params(":id")));
-
+      Cat cat = Cat.find(Integer.parseInt(request.params(":id")));
+      model.put("cat", cat);
       model.put("template", "templates/cat.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

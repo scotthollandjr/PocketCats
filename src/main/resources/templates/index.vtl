@@ -36,7 +36,7 @@
       <div class="col-xs-12">
         <h1 class="text-center">CAT FEED</h1>
         <ul id="recentCatList">
-          #foreach ($cat in $cats.list())
+          #foreach ($cat in $cats)
             <li><a class="btn" href="cat/$cat.getId()">$cat.getName()</a></li>
           #end
         </ul>
