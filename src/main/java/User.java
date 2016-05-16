@@ -115,4 +115,25 @@ public class User {
       }
     }
 
+
+  public List<Comment> getComments() {
+    String sql = "SELECT cat_id FROM cats_users WHERE user_id=:user_id";
+    try(Connection con = DB.sql2o.open()) {
+      List<Integer> commentIds = con.createQuery(sql)
+        .addParameter("user_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+      List<Comment> comments = new ArrayList<Comment>();
+
+      for (Integer commentId : commentIds) {
+        String stringQuery = "SELECT * FROM comments WHERE id=:id";
+        Comment newComment = con.createQuery(stringQuery)
+          .addParameter("id", commentId)
+          .executeAndFetchFirst(Comment.class);
+          comments.add(newComment);
+        }
+        return comments;
+      }
+    }
+
 }
