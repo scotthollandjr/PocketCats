@@ -22,6 +22,13 @@ public class CatTest {
   }
 
   @Test
+  public void equals_returnTrueIdCatsAreTheSame() {
+    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newerCat = new Cat("Appa", "Siamese");
+    assertTrue(newCat.equals(newerCat));
+  }
+
+  @Test
   public void save_savesToCatDatabase() {
     Cat newCat = new Cat("Appa", "Siamese");
     newCat.save();
@@ -34,4 +41,29 @@ public class CatTest {
     newCat.save();
     assertEquals(newCat.getId(), Cat.all().get(0).getId());
   }
+
+  @Test
+  public void find_findCatInDatabase() {
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    Cat savedCat = Cat.all().get(0);
+    assertEquals(savedCat, Cat.find(newCat.getId()));
+  }
+
+  @Test
+  public void updateName_updateCatNameInDatabase() {
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    newCat.updateName("Stevens");
+    assertEquals("Stevens", Cat.all().get(0).getName());
+  }
+
+  @Test
+  public void delete_deletesObject() {
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    newCat.delete();
+    assertEquals(0, Cat.all().size());
+  }
+
 }

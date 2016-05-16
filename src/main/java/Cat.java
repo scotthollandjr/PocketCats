@@ -92,8 +92,8 @@ public class Cat {
     String sql = "UPDATE cats SET name=:name WHERE id=:id";
     try(Connection con = DB.sql2o.open()) {
       con.createQuery(sql)
-        .addParameter("id", this.getId())
         .addParameter("name", update)
+        .addParameter("id", this.getId())
         .executeUpdate();
     }
   }
@@ -115,7 +115,7 @@ public class Cat {
         .addParameter("id", this.getId())
         .executeUpdate();
 
-    String joinDeleteQuery = "DELETE FROM cats_users WHERE cat_id: cat_id";
+    String joinDeleteQuery = "DELETE FROM cats_users WHERE cat_id=:cat_id";
       con.createQuery(joinDeleteQuery)
         .addParameter("cat_id", this.getId())
         .executeUpdate();
