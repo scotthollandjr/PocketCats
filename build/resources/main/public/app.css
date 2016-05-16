@@ -27,3 +27,9 @@
 .formSubmitSearch {
   padding: 4em;
 }
+
+.boxModel {
+    padding: 25px;
+    border: 25px solid black;
+    margin: 25px;
+}

@@ -25,6 +25,14 @@ public class App {
       model.put("template", "templates/cats.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/cat/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      // Cat cat = Cat.find(Integer.parseInt(request.params(":id")));
+
+      model.put("template", "templates/cat.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
 

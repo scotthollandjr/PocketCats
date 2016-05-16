@@ -37,13 +37,13 @@
         <h3>CAT FEED</h3>
         <ul id="recentCatList">
           #foreach ($cat in $cats.list())
-            <li><a class="btn" href="$cat.getId()">$cat.getName()</a></li>
+            <li><a class="btn" href="cat/$cat.getId()">$cat.getName()</a></li>
           #end
         </ul>
       </div>
     </div>
     <div class="col-sm-9 middleContent">
-      <img class="imgFrontPage" src="http://i.imgur.com/nUOqX.png" alt="picture of cat" ></img>
+      <img class="imgFrontPage" src="http://orig09.deviantart.net/3deb/f/2012/290/2/0/pokecats_series_1_meowth_by_owolinksu-d5i51ax.jpg" alt="picture of cat" ></img>
       <br>
       <div class="formSubmitSearch">
         <form action="/search" method="get" role="search">
