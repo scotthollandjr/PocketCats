@@ -20,6 +20,17 @@ public class User {
     return name;
   }
 
+  @Override
+  public boolean equals (Object otherUser) {
+    if(!(otherUser instanceof User)) {
+      return false;
+    } else {
+      User newUser = (User) otherUser;
+      return this.getName().equals(newUser.getName()) &&
+             this.getId() == newUser.getId();
+    }
+  }
+
   public void save() {
     String sql = "INSERT INTO users (name) VALUES (:name)";
     try (Connection con = DB.sql2o.open()) {
@@ -27,6 +38,14 @@ public class User {
         .addParameter("name", this.getName())
         .executeUpdate()
         .getKey();
+    }
+  }
+
+  public static List<User> all() {
+    String sql = "SELECT id, name FROM users";
+    try (Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql)
+        .executeAndFetch(User.class);
     }
   }
 
@@ -57,7 +76,7 @@ public class User {
         .addParameter("id", this.getId())
         .executeUpdate();
 
-    String joinDeleteQuery = "DELETE FROM cats_users WHERE user_id: user_id";
+    String joinDeleteQuery = "DELETE FROM cats_users WHERE user_id=:user_id";
       con.createQuery(joinDeleteQuery)
         .addParameter("user_id", this.getId())
         .executeUpdate();
