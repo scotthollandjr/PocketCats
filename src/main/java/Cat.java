@@ -44,6 +44,64 @@ public class Cat {
     return description;
   }
 
+  public void save() {
+    String sql = "INSERT INTO cats (name, status, location, date, description) VALUES (:name, :status, :location, :date, :description)";
+    try (Connection con = DB.sql2o()) {
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("name", this.getName)
+        .addParameter("status", this.getStatus)
+        .addParameter("location", this.getLocation)
+        .addParameter("date", this.getDate)
+        .addParameter("description", this.getDescription)
+        .executeUpdate()
+        .getKey();
+    }
+  }
+
+  public static Cat find(int id) {
+    String sql = "SELECT * FROM cats WHERE id=:id"
+    try (Connection con = DB.sql2o()) {
+      Cat cat = con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Cat.class);
+      return Cat;
+    }
+  }
+
+  public void updateName(String update) {
+    String sql = "UPDATE cats SET name=:name WHERE id=:id";
+    try(Connection con = DB.sql2o.open()) {
+      con.createQuery(sql)
+        .addParameter("id", this.getId())
+        .addParameter("name", update)
+        .executeUpdate();
+    }
+  }
+
+  public void updateStatus(Boolean status) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE cats SET status=:status WHERE id=:id";
+        con.createQuery(sql)
+          .addParameter("id", this.getId())
+          .addParameter("status", status)
+          .executeUpdate();
+    }
+  }
+
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+    String deleteQuery = "DELETE FROM cats WHERE id=:id";
+      con.createQuery(deleteQuery)
+        .addParameter("id", this.getId())
+        .executeUpdate();
+
+    String joinDeleteQuery = "DELETE FROM cats_users WHERE cat_id: cat_id";
+      con.createQuery(joinDeleteQuery)
+        .addParameter("cat_id", this.getId())
+        .executeUpdate();
+    }
+  }
+
   // Cat has many to many with users
   public void addUser(User user){
     try(Connection con = DB.sql2o.open()) {
@@ -68,7 +126,7 @@ public class Cat {
         String sql = "SELECT * FROM users WHERE id=:id";
         User newUser = con.createQuery(sql) {
           .addParameter("id", userId)
-          executeAndFetch(User.class);
+          .executeAndFetch(User.class);
           users.add(newUser);
         }
         return users;
