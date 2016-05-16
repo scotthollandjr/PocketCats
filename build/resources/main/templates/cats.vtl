@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbarStyles">
   <div class="container-fluid">
 
     <div class="navbar-header">
@@ -13,7 +13,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/cats">Cats <span class="sr-only">(current)</span></a></li>
+        <li><a href="/cats">Cats <span class="sr-only">(current)</span></a></li>
         <li><a href="#">PLACEHOLDER</a></li>
       </ul>
 
@@ -29,4 +29,8 @@
     </div>
   </div>
 </nav>
-<div class="jumbotron">CATS ARE THE BEST</div>
+<div class="container">
+#foreach ($cat in $cats)
+  <li><a href="/cats/cat.getId()">$cat.getName()</a>
+#end
+</div>
