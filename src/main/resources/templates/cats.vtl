@@ -33,6 +33,17 @@
   <div class="row">
     <div class="col-sm-3 sidebar">
       <h1 class="text-center">Add Cat<h1>
+      <form class="form-control" action="/cats" method="post">
+        <div class="">
+          <label for="catName">Cat Name:</label>
+          <input type="text" id="catName" name="catName">
+          <label for="catColor">Cat Color:</label>
+          <input type="text" id="catColor" name="catColor">
+          <label for="catAlignment">Cat Color:</label>
+          <input type="text" id="catAlignment" name="catAlignment">
+          <p>UPLOAD PICTURE</p>
+        </div>
+        <button type="submit" class="btn">Submit</button>
     </div>
     <div class="col-sm-8">
       <h2 class="text-center">CATZ</h2>
