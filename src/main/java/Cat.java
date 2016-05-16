@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
-import java.util.TimeandDate;
+import java.time.LocalDateTime;
 import org.sql2o.*;
 
 public class Cat {
@@ -8,10 +8,10 @@ public class Cat {
   private String name;
   private Boolean status;
   private String location;
-  private Timestamp date;
+  private LocalDateTime date;
   private String description;
 
-  public Cat() {
+  public Cat(String name, String description) {
     this.id = id;
     this.name = name;
     this.status = status;
@@ -20,51 +20,71 @@ public class Cat {
     this.description = description;
   }
 
-  public getId() {
+  public int getId() {
     return id;
   }
 
-  public getName() {
+  public String getName() {
     return name;
   }
 
-  public getStatus() {
+  public Boolean getStatus() {
     return status;
   }
 
-  public getLocation() {
+  public String getLocation() {
     return location;
   }
 
-  public getDate() {
+  public LocalDateTime getDate() {
     return date;
   }
 
-  public getDescription() {
+  public String getDescription() {
     return description;
   }
 
+  public static List<Cat> all() {
+    String sql = "SELECT id, name, status, location, date, description FROM cats";
+    try (Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql)
+        .executeAndFetch(Cat.class);
+    }
+  }
+
+  @Override
+  public boolean equals (Object otherCat) {
+    if(!(otherCat instanceof Cat)) {
+      return false;
+    } else {
+      Cat newCat = (Cat) otherCat;
+      return this.getName().equals(newCat.getName()) &&
+             this.getId() == newCat.getId();
+    }
+  }
+
+
   public void save() {
     String sql = "INSERT INTO cats (name, status, location, date, description) VALUES (:name, :status, :location, :date, :description)";
-    try (Connection con = DB.sql2o()) {
+    try (Connection con = DB.sql2o.open()) {
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("name", this.getName)
-        .addParameter("status", this.getStatus)
-        .addParameter("location", this.getLocation)
-        .addParameter("date", this.getDate)
-        .addParameter("description", this.getDescription)
+        .addParameter("name", this.getName())
+        .addParameter("status", this.getStatus())
+        .addParameter("location", this.getLocation())
+        .addParameter("date", this.getDate())
+        .addParameter("description", this.getDescription())
         .executeUpdate()
         .getKey();
     }
   }
 
   public static Cat find(int id) {
-    String sql = "SELECT * FROM cats WHERE id=:id"
-    try (Connection con = DB.sql2o()) {
+    String sql = "SELECT * FROM cats WHERE id=:id";
+    try (Connection con = DB.sql2o.open()) {
       Cat cat = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Cat.class);
-      return Cat;
+      return cat;
     }
   }
 
@@ -121,21 +141,21 @@ public class Cat {
         .addParameter("cat_id", this.getId())
         .executeAndFetch(Integer.class);
 
-      List<User> users = new ArrayList<User>()
+      List<User> users = new ArrayList<User>();
+
       for (Integer userId : userIds) {
-        String sql = "SELECT * FROM users WHERE id=:id";
-        User newUser = con.createQuery(sql) {
+        String stringQuery = "SELECT * FROM users WHERE id=:id";
+        User newUser = con.createQuery(stringQuery)
           .addParameter("id", userId)
-          .executeAndFetch(User.class);
+          .executeAndFetchFirst(User.class);
           users.add(newUser);
         }
         return users;
       }
     }
-  }
 
   // Cat has one to many with Comments
-  public List<Comments> getComments() {
+  public List<Comment> getComments() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM comments WHERE cat_id=:cat_id";
       return con.createQuery(sql)
