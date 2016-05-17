@@ -2,16 +2,17 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import org.sql2o.*;
+import java.util.*;
 
 public class Cat {
   private int id;
   private String name;
   private Boolean status;
   private String location;
-  private LocalDateTime date;
+  private Date date;
   private String description;
 
-  public Cat(String name, String description) {
+  public Cat(String name, String description, Boolean status) {
     this.id = id;
     this.name = name;
     this.status = status;
@@ -36,7 +37,8 @@ public class Cat {
     return location;
   }
 
-  public LocalDateTime getDate() {
+  public Date getDate() {
+    java.util.Date date = new java.util.Date();
     return date;
   }
 
