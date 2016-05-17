@@ -31,6 +31,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Cat newCat = Cat.find(Integer.parseInt(request.params(":id")));
       model.put("cat", newCat);
+      model.put("users", User.all());
       model.put("template", "templates/cat.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -50,14 +51,25 @@ public class App {
 
     post("/cat/:id/comment/new", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      int intId = Integer.parseInt(request.queryParams("idInput"));
+      int catId = Integer.parseInt(request.queryParams("idCat"));
+      int userId = Integer.parseInt(request.queryParams("idUser"));
       String username = request.queryParams("username");
       String description = request.queryParams("description");
       Comment newComment = new Comment(description, username);
-      newComment.saveToCat(intId);
-      response.redirect("/cat/" + intId);
+      newComment.saveToCatAndUser(catId, userId);
+      response.redirect("/cat/" + catId);
       return null;
     });
+
+    post("/user/new", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      User newUser = new User(name);
+      newUser.save();
+      response.redirect("/");
+      return null;
+    });
+
   }
 }
 

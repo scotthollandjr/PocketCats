@@ -20,17 +20,18 @@
       <h3>Add Comment</h3>
       <form action="/cat/:id/comment/new" method="post">
         <div class="form-group">
-          <select class="form-control" name="username" id="username">
-            <option name="username" selected="selected" disabled>Select username:</option>
+          <select class="form-control" name="idUser" id="idUser">
+            <option name="idUser" selected="selected" disabled>Select username:</option>
             #foreach ($user in $users)
-              <option name="username" value="$user.getId()">$user.getUsername()</option>
+              <option name="idUser" value="$user.getId()">$user.getName()</option>
+              <input type="hidden" name="thisName" value="$user.getName()"></input>
             #end
           </select>
         </div>
         <div class="form-group">
           <textarea class="form-control" type="text" id="description" name="description" placeholder="Comment:"></textarea>
         </div>
-        <input type="hidden" name="idInput" value="$cat.getId()"></input>
+        <input type="hidden" name="idCat" value="$cat.getId()"></input>
         <button type="submit" class="btn">Submit</button>
       </form>
     </div>

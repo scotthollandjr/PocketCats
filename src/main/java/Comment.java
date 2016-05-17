@@ -56,20 +56,21 @@ public class Comment {
   }
 
 
-  public void saveToCat(int inputId) {
+  public void saveToCatAndUser(int catInput, int userInput) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO comments (user_id, username, description, date, cat_id) VALUES (:user_id, :username, :description, :date, :cat_id)";
-      this.cat_id = inputId;
+      String sql = "INSERT INTO comments (username, description, date, cat_id, user_id) VALUES (:username, :description, :date, :cat_id, :user_id)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("user_id", this.getId()) //what do i put here!
         .addParameter("username", this.getUsername())
         .addParameter("description", this.getDescription())
         .addParameter("date", this.getDate())
-        .addParameter("cat_id", this.cat_id)
+        .addParameter("cat_id", catInput)
+        .addParameter("user_id", userInput)
         .executeUpdate()
         .getKey();
     }
   }
+
+
 
   public static Comment find(int id) {
     String sql = "SELECT * FROM comments WHERE id=:id";
