@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import org.fluentlenium.adapter.FluentTest;
 import org.junit.ClassRule;
 import org.junit.Test;

@@ -33,6 +33,16 @@ public class App {
       model.put("template", "templates/cat.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    // post("cats/new", (request, response) -> {
+    //   Map<String, Object> model = new HashMap<String, Object>();
+    //   Cat newCat = new Cat(name, status, location, date, description)
+    //   String name = request.queryParams("catName");
+    //   String location = request.queryParams("catLocation");
+    //   String name = request.queryParams("catName");
+    //   response.redirect("/cats")
+    //   return null;
+    // })
   }
 }
 

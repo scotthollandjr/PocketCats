@@ -66,14 +66,14 @@ public class CatTest {
     assertEquals(0, Cat.all().size());
   }
 
-  @Test
-  public void getComments_getsComments() {
-    Cat newCat = new Cat("Appa", "Siamese");
-    newCat.save();
-    Comment newComment = new Comment("This cat is great");
-    newComment.save();
-    newCat.add
-  }
+  // @Test
+  // public void getComments_getsComments() {
+  //   Cat newCat = new Cat("Appa", "Siamese");
+  //   newCat.save();
+  //   Comment newComment = new Comment("This cat is great");
+  //   newComment.save();
+  //   newCat.add
+  // }
 
   // @Test
   // public void addUser_addsAUserToThisCat() {

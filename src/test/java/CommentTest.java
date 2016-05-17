@@ -31,21 +31,27 @@ public class CommentTest {
   @Test
   public void save_savesToCommentDatabase() {
     Comment newComment = new Comment("This cat rules!");
-    newComment.save();
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    newComment.saveToCat(newCat.getId());
     assertTrue(Comment.all().get(0).equals(newComment));
   }
 
   @Test
   public void save_saveAssignsIdToObject() {
     Comment newComment = new Comment("This cat rules!");
-    newComment.save();
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    newComment.saveToCat(newCat.getId());
     assertEquals(newComment.getId(), Comment.all().get(0).getId());
   }
 
   @Test
   public void find_findCommentInDatabase() {
     Comment newComment = new Comment("This cat rules!");
-    newComment.save();
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    newComment.saveToCat(newCat.getId());
     Comment savedComment = Comment.all().get(0);
     assertEquals(savedComment, Comment.find(newComment.getId()));
   }
@@ -53,7 +59,9 @@ public class CommentTest {
   @Test
   public void delete_deletesObject() {
     Comment newComment = new Comment("This cat rules!");
-    newComment.save();
+    Cat newCat = new Cat("Appa", "Siamese");
+    newCat.save();
+    newComment.saveToCat(newCat.getId());
     newComment.delete();
     assertEquals(0, Comment.all().size());
   }
