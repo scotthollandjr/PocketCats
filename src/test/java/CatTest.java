@@ -47,7 +47,7 @@ public class CatTest {
     Cat newCat = new Cat("Appa", "Siamese");
     newCat.save();
     Cat savedCat = Cat.all().get(0);
-    assertEquals(savedCat, Cat.find(newCat.getId()));
+    assertEquals(savedCat.getName(), Cat.find(newCat.getId()).getName());
   }
 
   @Test
