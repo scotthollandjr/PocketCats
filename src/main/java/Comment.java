@@ -47,13 +47,15 @@ public class Comment {
   }
 
 
-  public void save() {
-    String sql = "INSERT INTO comments (user_id, description, date) VALUES (:user_id, :description, :date)";
+  public void saveToCat(int inputId) {
     try (Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO comments (user_id, description, date, cat_id) VALUES (:user_id, :description, :date, :cat_id)";
+      this.cat_id = inputId;
       this.id = (int) con.createQuery(sql, true)
         .addParameter("user_id", this.getId()) //what do i put here!
         .addParameter("description", this.getDescription())
         .addParameter("date", this.getDate())
+        .addParameter("cat_id", this.cat_id)
         .executeUpdate()
         .getKey();
     }
