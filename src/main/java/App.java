@@ -34,6 +34,14 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/catmap", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/catmap.vtl");
+      List<Location> locations = Location.all();
+      model.put("locations", locations);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     // post("cats/new", (request, response) -> {
     //   Map<String, Object> model = new HashMap<String, Object>();
     //   Cat newCat = new Cat(name, status, location, date, description)
@@ -43,6 +51,7 @@ public class App {
     //   response.redirect("/cats")
     //   return null;
     // })
+
   }
 }
 
