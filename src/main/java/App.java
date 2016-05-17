@@ -47,6 +47,17 @@ public class App {
       response.redirect("/cats");
       return null;
     });
+
+    post("/cat/:id/comment/new", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      int intId = Integer.parseInt(request.queryParams("idInput"));
+      String username = request.queryParams("username");
+      String description = request.queryParams("description");
+      Comment newComment = new Comment(description, username);
+      newComment.saveToCat(intId);
+      response.redirect("/cat/" + intId);
+      return null;
+    });
   }
 }
 

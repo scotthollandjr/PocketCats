@@ -2,15 +2,18 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import org.sql2o.*;
+import java.util.*;
 
 public class Comment {
   private int id;
+  private String username;
   private String description;
-  private LocalDateTime date;
+  private Date date;
   private int user_id;
   private int cat_id;
 
-  public Comment(String description) {
+  public Comment(String description, String username) {
+    this.username = username;
     this.description = description;
     this.date = date;
   }
@@ -23,12 +26,17 @@ public class Comment {
     return description;
   }
 
-  public LocalDateTime getDate() {
+  public String getUsername() {
+    return username;
+  }
+
+  public Date getDate() {
+    java.util.Date date = new java.util.Date();
     return date;
   }
 
   public static List<Comment> all() {
-    String sql = "SELECT id, user_id, description, date FROM comments";
+    String sql = "SELECT id, user_id, description, username, date FROM comments";
     try (Connection con = DB.sql2o.open()) {
       return con.createQuery(sql)
         .executeAndFetch(Comment.class);
@@ -42,6 +50,7 @@ public class Comment {
     } else {
       Comment newComment = (Comment) otherComment;
       return this.getDescription().equals(newComment.getDescription()) &&
+      this.getUsername().equals(newComment.getUsername()) &&
              this.getId() == newComment.getId();
     }
   }
@@ -49,10 +58,11 @@ public class Comment {
 
   public void saveToCat(int inputId) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO comments (user_id, description, date, cat_id) VALUES (:user_id, :description, :date, :cat_id)";
+      String sql = "INSERT INTO comments (user_id, username, description, date, cat_id) VALUES (:user_id, :username, :description, :date, :cat_id)";
       this.cat_id = inputId;
       this.id = (int) con.createQuery(sql, true)
         .addParameter("user_id", this.getId()) //what do i put here!
+        .addParameter("username", this.getUsername())
         .addParameter("description", this.getDescription())
         .addParameter("date", this.getDate())
         .addParameter("cat_id", this.cat_id)

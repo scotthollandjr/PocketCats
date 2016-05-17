@@ -33,3 +33,13 @@
     border: 15px solid black;
     margin: 10px;
 }
+
+#notStray {
+  font-weight: bold;
+  color: green;
+}
+
+#isStray {
+  font-weight: bold;
+  color: red;
+}
