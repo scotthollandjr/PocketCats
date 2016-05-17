@@ -5,12 +5,15 @@
     padding: 0;
   }
   #map {
-    height: 100%;
+    height: 60%;
   }
 </style>
 <div id="map"></div>
 <script>
   var map;
+  var infoContent = '<div class="">' +
+    '<h3 class="well">This is a test, yo</h3>' +
+  '</div>';
 
   #foreach($location in $locations)
     var loc$location.getId() = {lat: $location.getLat(), lng: $location.getLng()};
@@ -19,16 +22,41 @@
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 45.527497, lng: -122.669188},
-      zoom: 8
+      zoom: 12
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+      content: infoContent
     });
 
     #foreach($location in $locations)
-      var marker$location.getId() = new google.maps.Marker({
+      var marker${location.getId()} = new google.maps.Marker({
         position: loc$location.getId(),
         map: map,
-        title: 'Cat Location'
+        title: "Cat Location"
+      });
+      marker${location.getId()}.addListener('click', function() {
+        infowindow.open(map, marker${location.getId()});
       });
     #end
+
+    map.addListener('click', function(e) {
+      placeMarker(e.latLng, map)
+    });
+
+  }
+
+  function placeMarker(latLng, map) {
+    var marker = new google.maps.Marker({
+      position: latLng,
+      map: map
+    });
+    marker.addListener('click', function() {
+      var newWindow = new google.maps.InfoWindow({
+        content: '<h3 class="well">' + latLng + '</h3>'
+      });
+      newWindow.open(map, marker);
+    });
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlgCyOpSc_NyGh-3tqIoqcLUxki2KAv1w&callback=initMap"
