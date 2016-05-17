@@ -28,8 +28,8 @@ public class App {
 
     get("/cat/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      Cat cat = Cat.find(Integer.parseInt(request.params(":id")));
-      model.put("cat", cat);
+      Cat newCat = Cat.find(Integer.parseInt(request.params(":id")));
+      model.put("cat", newCat);
       model.put("template", "templates/cat.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

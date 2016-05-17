@@ -157,9 +157,9 @@ public class Cat {
   // Cat has one to many with Comments
   public List<Comment> getComments() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM comments WHERE cat_id=:cat_id";
+      String sql = "SELECT * FROM comments WHERE cat_id=:id";
       return con.createQuery(sql)
-        .addParameter("cat_id", this.getId())
+        .addParameter("id", this.id)
         .executeAndFetch(Comment.class);
     }
   }
