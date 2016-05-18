@@ -70,6 +70,28 @@ public class App {
       return null;
     });
 
+    get("/search", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("cats", Cat.all());
+      model.put("users", User.all());
+      model.put("template", "templates/search.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/search/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      int userId = Integer.parseInt(request.queryParams("idUser"));
+      response.redirect("/search/" + userId);
+      return null;
+    });
+
+    get("/search/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User thisUser = User.find(Integer.parseInt(request.params(":id")));
+      model.put("thisUser", thisUser);
+      model.put("template", "templates/search.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
 
