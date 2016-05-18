@@ -1,35 +1,76 @@
-.navbar .navbar-nav {
-    display: inline-block;
-    float: none;
+.navbarStyle {
+  background-color: transparent;
+  border: none;
+  padding: none;
+  margin: none;
 }
-
-.navbar .navbar-collapse {
-    text-align: center;
+#notStray {
+  font-weight: bold;
+  color: green;
 }
-
-/* ------------- INDEX.vtl----------- */
-.sidebar {
-  background-color: black;
+#isStray {
+  font-weight: bold;
+  color: red;
+}
+body {
+  font-family: 'Quicksand', sans-serif;
   color: white;
-  height: 75em;
+  background-color: #E0E0E0;
 }
-
-.imgFrontPage {
+.siteLabel {
+  font-size: 80px;
+  color: gold;
+}
+.kitty {
+  background: url(https://www.purina.com/media/490945/08-How-can-I-prevent-obesity-for-my-cat-and-help-her-loose-weight-_hero.jpg);
+  background-repeat: none;
+  background-size: cover;
+  height: 900px;
+  text-align: center;
+  /* padding-top: 400px; */
+}
+.kitty strong{
+  color: gold;
+  font-size: 60px;
+  text-align: center;
+}
+footer {
+  background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQF2Rsxly2S42L1sme8GdJHgzvRz8M2yE8y7lx7G2byCcxkHcaD);
+  height: 250px;
+  padding: none;
+  color: white;
+  text-align: center;
+  border-top: 200px;
+  margin-top: 50px;
+  vertical-align: bottom;
+  position: absolute;
+  bottom: 0px;
   width: 100%;
-  height: 100%;
+  padding: 40px;
 }
-
-.navbarStyles {
+form input {
+  background-color: #78B6C6;
+}
+.left {
+  float: right;
   color: white;
-  background-color: black;
 }
-
-.formSubmitSearch {
-  padding: 4em;
+i {
+  margin: 10px;
 }
-
-.boxModel {
-    padding: 25px;
-    border: 15px solid black;
-    margin: 10px;
+footer a {
+  color: white;
+}
+footer a:hover {
+  color: #E0E0E0;
+}
+.navLinks button {
+  border: none;
+  background-color: transparent;
+  float: right;
+  color: #78B6C6;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 30px;
+  margin-top: 50px;
 }
