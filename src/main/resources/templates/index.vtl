@@ -1,37 +1,4 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-3 sidebar">
-      <div class="col-xs-12">
-        <h1 class="text-center">CAT FEED</h1>
-        <ul id="recentCatList">
-          #foreach ($cat in $cats)
-            <h1><a class="catLink" href="cat/$cat.getId()">$cat.getName()</a></h1>
-          #end
-        </ul>
-      </div>
-    </div>
-    <div class="col-sm-9 middleContent">
-      <img class="imgFrontPage" src="http://orig09.deviantart.net/3deb/f/2012/290/2/0/pokecats_series_1_meowth_by_owolinksu-d5i51ax.jpg" alt="picture of cat" ></img>
-      <br>
-      <div class="formSubmitSearch">
-        <form action="/search" method="get" role="search">
-          <div class="form-group">
-            <input type="text" name="search" class="form-control" placeholder="City, State">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-      <div class="col-sm-7 boxModel">
-        <h3>Add User</h3>
-        <form action="/user/new" method="post">
-          <div class="form-group">
-            <input class="form-control" type="text" id="name" name="name" placeholder="Username:"></input>
-          </div>
-          <input type="hidden" name="idCat" value="$cat.getId()"></input>
-          <button type="submit" class="btn">Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<form>
+  <label for="inputLocation">City</label>
+  <input id = "inputLocation" name="inputLocation" type="text"></input>
+</form>
