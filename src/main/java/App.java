@@ -92,17 +92,39 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/search/:id", (request, response) -> {
+    post("/search/user/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       int userId = Integer.parseInt(request.queryParams("idUser"));
-      response.redirect("/search/" + userId);
+      response.redirect("/search/user/" + userId);
       return null;
     });
 
-    get("/search/:id", (request, response) -> {
+    get("/search/user/:id", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User thisUser = User.find(Integer.parseInt(request.params(":id")));
       model.put("thisUser", thisUser);
+      model.put("users", User.all());
+      model.put("template", "templates/search.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/search/style/:style", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String style = request.queryParams("catDescription");
+      model.put("style", style);
+      response.redirect("/search/style/" + style);
+      return null;
+    });
+
+    get("/search/style/:style", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      // User thisUser = User.find(Integer.parseInt(request.params(":id")));
+      // model.put("thisUser", thisUser);
+      String style = request.params(":style");
+      model.put("style", style);
+      List<Cat> styles = Cat.getByStyle(style);
+      model.put("styles", styles);
+      model.put("users", User.all());
       model.put("template", "templates/search.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
