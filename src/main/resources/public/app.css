@@ -1,50 +1,17 @@
-.navbar .navbar-nav {
-    display: inline-block;
-    float: none;
-}
-
-.navbar .navbar-collapse {
-    text-align: center;
-}
-
-.sidebar {
-  background-color: black;
-  color: white;
-  height: 75em;
-}
-
-.imgFrontPage {
-  width: 100%;
-  height: 100%;
-}
-
 .navbarStyle {
   background-color: transparent;
   border: none;
   padding: none;
   margin: none;
 }
-
-.formSubmitSearch {
-  padding: 4em;
-}
-
-.boxModel {
-    padding: 25px;
-    border: 15px solid black;
-    margin: 10px;
-}
-
 #notStray {
   font-weight: bold;
   color: green;
 }
-
 #isStray {
   font-weight: bold;
   color: red;
 }
-
 body {
   font-family: 'Quicksand', sans-serif;
   color: white;
@@ -91,9 +58,19 @@ form input {
 i {
   margin: 10px;
 }
-a {
+footer a {
   color: white;
 }
-a:hover {
+footer a:hover {
   color: #E0E0E0;
+}
+.navLinks button {
+  border: none;
+  background-color: transparent;
+  float: right;
+  color: #78B6C6;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 30px;
+  margin-top: 50px;
 }
