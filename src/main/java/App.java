@@ -89,6 +89,9 @@ public class App {
       model.put("cats", Cat.all());
       model.put("users", User.all());
       model.put("template", "templates/search.vtl");
+      model.put("catmap", "templates/catmap.vtl");
+      List<Location> locations = Location.all();
+      model.put("locations", locations);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
