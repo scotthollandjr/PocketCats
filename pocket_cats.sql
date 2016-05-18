@@ -72,7 +72,8 @@ CREATE TABLE cats (
     status boolean,
     location character varying,
     date timestamp without time zone,
-    description character varying
+    description character varying,
+    user_id integer
 );
 
 
@@ -257,8 +258,12 @@ SELECT pg_catalog.setval('catpics_id_seq', 1, false);
 -- Data for Name: cats; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY cats (id, name, status, location, date, description) FROM stdin;
-7	Groodle	f	\N	2016-05-17 15:10:54.889	Tuxedo
+COPY cats (id, name, status, location, date, description, user_id) FROM stdin;
+22	Geoffrey	f	\N	2016-05-18 11:25:07.124	Maine Coon	\N
+23	Appa	f	\N	2016-05-18 11:25:22.507	Siamese	\N
+24	Lil' Durfy	f	\N	2016-05-18 11:27:01.138	Grey	\N
+25	John Jr.	f	\N	2016-05-18 11:27:20.86	Maine Coon	\N
+26	John Dow	f	\N	2016-05-18 13:46:35.743	Unknown	\N
 \.
 
 
@@ -266,7 +271,7 @@ COPY cats (id, name, status, location, date, description) FROM stdin;
 -- Name: cats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('cats_id_seq', 7, true);
+SELECT pg_catalog.setval('cats_id_seq', 26, true);
 
 
 --
@@ -274,7 +279,11 @@ SELECT pg_catalog.setval('cats_id_seq', 7, true);
 --
 
 COPY cats_users (id, user_id, cat_id) FROM stdin;
-1	1	1
+10	7	22
+11	7	23
+12	8	24
+13	8	25
+14	7	26
 \.
 
 
@@ -282,7 +291,7 @@ COPY cats_users (id, user_id, cat_id) FROM stdin;
 -- Name: cats_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('cats_users_id_seq', 1, true);
+SELECT pg_catalog.setval('cats_users_id_seq', 14, true);
 
 
 --
@@ -290,12 +299,12 @@ SELECT pg_catalog.setval('cats_users_id_seq', 1, true);
 --
 
 COPY comments (id, description, user_id, cat_id, date, username) FROM stdin;
-7	This is a great cat!	0	7	2016-05-17 15:14:09.097	Scottholland19
-8	This cat scratched my retina, BEWARE!	0	7	2016-05-17 15:16:22.049	cbeddoe06
-9	Loves belly rubs and retinas	0	7	2016-05-17 15:17:27.099	Tacocat69
-10	Just stopping by to check out the timestamp!	0	7	2016-05-17 15:26:39.918	Stuffy
-11	this is a comment	3	7	2016-05-17 16:23:51.387	\N
-12	man thats a fuckin wicked cat	5	7	2016-05-17 16:28:14.878	\N
+18	this cat is so sweet	4	7	2016-05-18 08:56:59.648	meowthkid47
+19	I like to pet this cat on my way to work	5	7	2016-05-18 08:57:11.104	JDeezy
+20	this cat fuckin blows	4	9	2016-05-18 10:41:53.3	meowthkid47
+21	warning, dont touch belly	2	9	2016-05-18 10:42:03.68	Scott
+22	I found this cat on the way to school, he appears to be a racist	7	23	2016-05-18 11:25:58.919	jdeezy
+23	cool cat, 10/10	8	25	2016-05-18 11:27:36.206	samuel.the.durf
 \.
 
 
@@ -303,7 +312,7 @@ COPY comments (id, description, user_id, cat_id, date, username) FROM stdin;
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('comments_id_seq', 12, true);
+SELECT pg_catalog.setval('comments_id_seq', 23, true);
 
 
 --
@@ -311,11 +320,9 @@ SELECT pg_catalog.setval('comments_id_seq', 12, true);
 --
 
 COPY users (id, name) FROM stdin;
-1	Tom Cruise
-2	Scott
-3	ScottHollandJimmy
-4	meowthkid47
-5	JDeezy
+6	scotthollandjr
+7	jdeezy
+8	samuel.the.durf
 \.
 
 
@@ -323,7 +330,7 @@ COPY users (id, name) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('users_id_seq', 5, true);
+SELECT pg_catalog.setval('users_id_seq', 8, true);
 
 
 --
