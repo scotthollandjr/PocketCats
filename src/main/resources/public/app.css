@@ -91,3 +91,9 @@ form input {
 i {
   margin: 10px;
 }
+a {
+  color: white;
+}
+a:hover {
+  color: #E0E0E0;
+}
