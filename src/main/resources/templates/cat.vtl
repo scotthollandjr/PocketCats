@@ -1,10 +1,12 @@
 
 <div class="container">
   <div class="row">
-    <h1 class="boxModel text-center">$cat.getName()</h1>
+    <h1 class="text-center">$cat.getName()</h1>
   </div>
   <div class="row">
-    <div class="col-sm-4 boxModel">
+    <div class="col-sm-1">
+    </div>
+    <div class="col-sm-5">
       <img src="$cat.getImage()" alt="image of pokeycat" class="imgFrontPage"></img>
       <br>
       #if ($cat.getStatus())
@@ -17,7 +19,7 @@
       <p>By: $cat.getUsers().get(0).getName()</p>
       <p>[Small map showing location]</p>
     </div>
-    <div class="col-sm-7 boxModel">
+    <div class="col-sm-5">
       <h3>Add Comment</h3>
       <form action="/cat/:id/comment/new" method="post">
         <div class="form-group">
@@ -35,19 +37,27 @@
         <input type="hidden" name="idCat" value="$cat.getId()"></input>
         <button type="submit" class="btn">Submit</button>
       </form>
-    </div>
-    <div class="col-sm-7 boxModel">
-      <h3>Comments</h3>
-        <div>
-        #foreach ($comment in $cat.getComments())
-          <div class="commentBox">
-            <hr>
-            <h3>$comment.getUsername() - $comment.getDate()</h3>
-            <h4>$comment.getDescription()</h4>
-            <hr>
-          </div>
-        #end
       </div>
+    <div class="col-sm-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-xs-6">
+    <h3>Comments</h3>
+      <div>
+      #foreach ($comment in $cat.getComments())
+        <div class="commentBox">
+          <hr>
+          <h3>$comment.getUsername() - $comment.getDate()</h3>
+          <h4>$comment.getDescription()</h4>
+          <hr>
+        </div>
+      #end
+      </div>
+    </div>
+    <div class="col-sm-3">
     </div>
   </div>
 </div>

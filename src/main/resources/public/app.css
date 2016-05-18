@@ -27,7 +27,9 @@ body {
   background-size: cover;
   height: 900px;
   text-align: center;
-  /* padding-top: 400px; */
+}
+.alignVertical {
+  padding-top: 350px;
 }
 .kitty strong{
   color: gold;
