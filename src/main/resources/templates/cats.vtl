@@ -3,25 +3,34 @@
   <div class="row">
     <div class="col-sm-3 sidebar">
       <h1 class="text-center">Add Cat<h1>
-      <form class="form-control" action="/cats/new" method="post">
-        <div class="">
-          <label for="catName">Cat Name:</label>
-          <input type="text" id="catName" name="catName">
-
-          <label for="catLocation">Cat Location:</label>
-          <input type="text" id="catLocation" name="catLocation">
-
-          <label for="catDescription">Cat Description:</label>
-          <input type="text" id="catDescription" name="catDescription">
-
-          <p>UPLOAD PICTURE</p>
+      <form action="/cats/new" method="post">
+        <div class="form-group">
+          <input class="form-control" type="text" id="catName" name="catName" placeholder="Cat Name:">
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="catDescription" id="catDescription">
+            <option name="catDescription" selected="selected" disabled>Select style:</option>
+            <option name="catDescription" value="Orange">Orange</option>
+            <option name="catDescription" value="Tuxedo">Tuxedo</option>
+            <option name="catDescription" value="Grey">Grey</option>
+            <option name="catDescription" value="Siamese">Siamese</option>
+            <option name="catDescription" value="Black">Black</option>
+            <option name="catDescription" value="White">White</option>
+            <option name="catDescription" value="Calico">Calico</option>
+            <option name="catDescription" value="Tortoiseshell">Tortoiseshell</option>
+            <option name="catDescription" value="Tabby">Tabby</option>
+            <option name="catDescription" value="Maine Coon">Maine Coon</option>
+            <option name="catDescription" value="Unknown">Unknown</option>
+          </select>
         </div>
         <button type="submit" class="btn">Submit</button>
+      </form>
     </div>
     <div class="col-sm-8">
       <h2 class="text-center">CATZ</h2>
       #foreach ($cat in $cats)
-        <li><a href="/cats/cat.getId()">$cat.getName()</a>
+        <p class="text-center"><img href="$cat.image()" alt="picture of a cat"></img></p>
+        <p class="text-center"><a href="/cat/$cat.getId()">$cat.getName()</a><p>
       #end
     </div>
   </div>

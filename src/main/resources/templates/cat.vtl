@@ -7,17 +7,46 @@
     <div class="col-sm-4 boxModel">
       <img src="$cat.getImage()" alt="image of pokeycat" class="imgFrontPage"></img>
       <br>
-      <p>Alive: $cat.getStatus()</p>
+      #if ($cat.getStatus())
+        <p>This cat is: <span id="notStray">Claimed</span></p>
+      #else
+        <p>This cat is: <span id="isStray">Not-Claimed</span></p>
+      #end
       <p>Appearance: $cat.getDescription()</p>
-      <p>Location: $cat.getLocation()</p>
+      <p>Logged: $cat.getDate()</p>
+      <p>[Small map showing location]</p>
     </div>
     <div class="col-sm-7 boxModel">
-      <h2>Comments</h2>
-      <ul>
+      <h3>Add Comment</h3>
+      <form action="/cat/:id/comment/new" method="post">
+        <div class="form-group">
+          <select class="form-control" name="idUser" id="idUser">
+            <option name="idUser" selected="selected" disabled>Select username:</option>
+            #foreach ($user in $users)
+              <option name="idUser" value="$user.getId()">$user.getUsername()</option>
+            #end
+          </select>
+        </div>
+        <input type="hidden" name="thisName" value="$user.getName()"></input>
+        <div class="form-group">
+          <textarea class="form-control" type="text" id="description" name="description" placeholder="Comment:"></textarea>
+        </div>
+        <input type="hidden" name="idCat" value="$cat.getId()"></input>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+    <div class="col-sm-7 boxModel">
+      <h3>Comments</h3>
+        <div>
         #foreach ($comment in $cat.getComments())
-          <li> $comment.getDescription() </li>
+          <div class="commentBox">
+            <hr>
+            <h3>$comment.getUsername() - $comment.getDate()</h3>
+            <h4>$comment.getDescription()</h4>
+            <hr>
+          </div>
         #end
-      </ul>
+      </div>
     </div>
   </div>
 </div>

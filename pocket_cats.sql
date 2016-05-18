@@ -14,14 +14,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -34,7 +34,41 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: cats; Type: TABLE; Schema: public; Owner: SamDurfey
+-- Name: catpics; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+--
+
+CREATE TABLE catpics (
+    id integer NOT NULL,
+    image bytea
+);
+
+
+ALTER TABLE catpics OWNER TO "Guest";
+
+--
+-- Name: catpics_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE catpics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE catpics_id_seq OWNER TO "Guest";
+
+--
+-- Name: catpics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE catpics_id_seq OWNED BY catpics.id;
+
+
+--
+-- Name: cats; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
+>>>>>>> 148558511a0704f1cb76251d4b059ca02b921ad6
 --
 
 CREATE TABLE cats (
@@ -113,7 +147,8 @@ CREATE TABLE comments (
     description character varying,
     user_id integer,
     cat_id integer,
-    date timestamp without time zone
+    date timestamp without time zone,
+    username character varying
 );
 
 
@@ -212,6 +247,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: SamDurfey
 --
 
+ALTER TABLE ONLY catpics ALTER COLUMN id SET DEFAULT nextval('catpics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
 ALTER TABLE ONLY cats ALTER COLUMN id SET DEFAULT nextval('cats_id_seq'::regclass);
 
 
@@ -244,10 +286,27 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Data for Name: cats; Type: TABLE DATA; Schema: public; Owner: SamDurfey
+-- Data for Name: catpics; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY catpics (id, image) FROM stdin;
+\.
+
+
+--
+-- Name: catpics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('catpics_id_seq', 1, false);
+
+
+--
+-- Data for Name: cats; Type: TABLE DATA; Schema: public; Owner: Guest
+>>>>>>> 148558511a0704f1cb76251d4b059ca02b921ad6
 --
 
 COPY cats (id, name, status, location, date, description) FROM stdin;
+7	Groodle	f	\N	2016-05-17 15:10:54.889	Tuxedo
 \.
 
 
@@ -255,7 +314,7 @@ COPY cats (id, name, status, location, date, description) FROM stdin;
 -- Name: cats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: SamDurfey
 --
 
-SELECT pg_catalog.setval('cats_id_seq', 1, false);
+SELECT pg_catalog.setval('cats_id_seq', 7, true);
 
 
 --
@@ -263,6 +322,7 @@ SELECT pg_catalog.setval('cats_id_seq', 1, false);
 --
 
 COPY cats_users (id, user_id, cat_id) FROM stdin;
+1	1	1
 \.
 
 
@@ -270,14 +330,20 @@ COPY cats_users (id, user_id, cat_id) FROM stdin;
 -- Name: cats_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: SamDurfey
 --
 
-SELECT pg_catalog.setval('cats_users_id_seq', 1, false);
+SELECT pg_catalog.setval('cats_users_id_seq', 1, true);
 
 
 --
 -- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: SamDurfey
 --
 
-COPY comments (id, description, user_id, cat_id, date) FROM stdin;
+COPY comments (id, description, user_id, cat_id, date, username) FROM stdin;
+7	This is a great cat!	0	7	2016-05-17 15:14:09.097	Scottholland19
+8	This cat scratched my retina, BEWARE!	0	7	2016-05-17 15:16:22.049	cbeddoe06
+9	Loves belly rubs and retinas	0	7	2016-05-17 15:17:27.099	Tacocat69
+10	Just stopping by to check out the timestamp!	0	7	2016-05-17 15:26:39.918	Stuffy
+11	this is a comment	3	7	2016-05-17 16:23:51.387	\N
+12	man thats a fuckin wicked cat	5	7	2016-05-17 16:28:14.878	\N
 \.
 
 
@@ -285,7 +351,7 @@ COPY comments (id, description, user_id, cat_id, date) FROM stdin;
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: SamDurfey
 --
 
-SELECT pg_catalog.setval('comments_id_seq', 1, false);
+SELECT pg_catalog.setval('comments_id_seq', 12, true);
 
 
 --
@@ -310,6 +376,11 @@ COPY locations (id, lat, lng, cat_id) FROM stdin;
 --
 
 COPY users (id, name) FROM stdin;
+1	Tom Cruise
+2	Scott
+3	ScottHollandJimmy
+4	meowthkid47
+5	JDeezy
 \.
 
 
@@ -317,7 +388,15 @@ COPY users (id, name) FROM stdin;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: SamDurfey
 --
 
-SELECT pg_catalog.setval('users_id_seq', 1, false);
+SELECT pg_catalog.setval('users_id_seq', 5, true);
+
+
+--
+-- Name: catpics_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
+--
+
+ALTER TABLE ONLY catpics
+    ADD CONSTRAINT catpics_pkey PRIMARY KEY (id);
 
 
 --
@@ -373,4 +452,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
