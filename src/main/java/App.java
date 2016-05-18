@@ -53,7 +53,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       int catId = Integer.parseInt(request.queryParams("idCat"));
       int userId = Integer.parseInt(request.queryParams("idUser"));
-      String username = request.queryParams("username");
+      String username = (User.find(userId)).getName();
       String description = request.queryParams("description");
       Comment newComment = new Comment(description, username);
       newComment.saveToCatAndUser(catId, userId);
