@@ -87,7 +87,7 @@ public class Cat {
   }
 
   public static Cat find(int id) {
-    String sql = "SELECT * FROM cats WHERE id=:id";
+    String sql = "SELECT id, name, status, location, date, description FROM cats WHERE id=:id";
     try (Connection con = DB.sql2o.open()) {
       Cat cat = con.createQuery(sql)
         .addParameter("id", id)
