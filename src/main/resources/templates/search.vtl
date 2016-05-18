@@ -1,8 +1,15 @@
 <div>
   <p><strong>Big ass map</strong></p>
-  #foreach ($cat in $thisUser.getCats())
-    <p>$cat.getName()</p>
-  #end
+  <div>
+    #foreach ($cat in $thisUser.getCats())
+      <p>$cat.getName()</p>
+    #end
+  </div>
+  <div>
+    #foreach ($cat in $styles)
+      <p>$cat.getName()</p>
+    #end
+  </div>
 </div>
 
 <div class="row">
@@ -11,7 +18,7 @@
 
   <div class="col-xs-4">
     <h3>Search cats by user</h3>
-    <form action="/search/:id" method="post">
+    <form action="/search/user/:id" method="post">
       <div class="form-group">
         <select class="form-control" name="idUser" id="idUser">
           <option name="idUser" selected="selected" disabled>Select username:</option>
@@ -26,7 +33,7 @@
 
   <div class="col-xs-4">
     <h3>Search cats by style</h3>
-    <form action="/search/:id" method="post">
+    <form action="/search/style/:style" method="post">
       <div class="form-group">
         <select class="form-control" name="catDescription" id="catDescription">
           <option name="catDescription" selected="selected" disabled>Select style:</option>
@@ -37,7 +44,7 @@
           <option name="catDescription" value="Black">Black</option>
           <option name="catDescription" value="White">White</option>
           <option name="catDescription" value="Calico">Calico</option>
-          <option name="catDescription" value="Tortoiseshell">Tortoiseshell</option>
+          <option name="catDescription" value="Tortoise Shell">Tortoise Shell</option>
           <option name="catDescription" value="Tabby">Tabby</option>
           <option name="catDescription" value="Maine Coon">Maine Coon</option>
           <option name="catDescription" value="Unknown">Unknown</option>

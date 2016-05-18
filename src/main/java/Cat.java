@@ -172,4 +172,13 @@ public class Cat {
     }
   }
 
+  public static List<Cat> getByStyle(String style) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM cats WHERE description=:description";
+      return con.createQuery(sql)
+        .addParameter("description", style)
+        .executeAndFetch(Cat.class);
+    }
+  }
+
 }
