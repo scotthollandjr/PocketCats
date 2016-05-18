@@ -23,11 +23,11 @@
           <select class="form-control" name="idUser" id="idUser">
             <option name="idUser" selected="selected" disabled>Select username:</option>
             #foreach ($user in $users)
-              <option name="idUser" value="$user.getId()">$user.getName()</option>
-              <input type="hidden" name="thisName" value="$user.getName()"></input>
+              <option name="idUser" value="$user.getId()">$user.getUsername()</option>
             #end
           </select>
         </div>
+        <input type="hidden" name="thisName" value="$user.getName()"></input>
         <div class="form-group">
           <textarea class="form-control" type="text" id="description" name="description" placeholder="Comment:"></textarea>
         </div>
@@ -41,7 +41,7 @@
         #foreach ($comment in $cat.getComments())
           <div class="commentBox">
             <hr>
-            <p><strong>$comment.getUsername()</strong> - $comment.getDate()</p>
+            <h3>$comment.getUsername() - $comment.getDate()</h3>
             <h4>$comment.getDescription()</h4>
             <hr>
           </div>
