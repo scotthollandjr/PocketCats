@@ -14,6 +14,13 @@
   var infoContent = '<div class="">' +
     '<h3 class="well">This is a test, yo</h3>' +
   '</div>';
+  var submitForm = '<form action="/cats" mehtod="post">' + 
+  '<div class="form-group">' +
+    '<label for="name">Name:</label>' + 
+    '<input class="form-control" type="text" name="name" id="name">' + 
+  '</div>' + 
+  '<button type="submit" id="submitBtn" class="btn btn-primary">I\'M NOT FUCKING INSTALLING LINTER, JOHN</button>' +
+'</form>';
 
   #foreach($location in $locations)
     var loc$location.getId() = {lat: $location.getLat(), lng: $location.getLng()};
@@ -53,7 +60,7 @@
     });
     marker.addListener('click', function() {
       var newWindow = new google.maps.InfoWindow({
-        content: '<h3 class="well">' + latLng + '</h3>'
+        content: submitForm
       });
       newWindow.open(map, marker);
     });
