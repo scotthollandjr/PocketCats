@@ -12,8 +12,9 @@
       #else
         <p>This cat is: <span id="isStray">Not-Claimed</span></p>
       #end
-      <p>Appearance: $cat.getDescription()</p>
+      <p>Type: $cat.getDescription()</p>
       <p>Logged: $cat.getDate()</p>
+      <p>By: $cat.getUsers().get(0).getName()</p>
       <p>[Small map showing location]</p>
     </div>
     <div class="col-sm-7 boxModel">

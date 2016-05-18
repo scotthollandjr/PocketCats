@@ -11,14 +11,16 @@ public class Cat {
   private String location;
   private Date date;
   private String description;
+  private int user_id;
 
-  public Cat(String name, String description, Boolean status) {
+  public Cat(String name, String description, Boolean status, int user_id) {
     this.id = id;
     this.name = name;
     this.status = status;
     this.location = location;
     this.date = date;
     this.description = description;
+    this.user_id = user_id;
   }
 
   public int getId() {
@@ -38,8 +40,12 @@ public class Cat {
   }
 
   public Date getDate() {
-    java.util.Date date = new java.util.Date();
     return date;
+  }
+
+  public Date createDate() {
+    java.util.Date newDate = new java.util.Date();
+    return newDate;
   }
 
   public String getDescription() {
@@ -73,7 +79,7 @@ public class Cat {
         .addParameter("name", this.getName())
         .addParameter("status", this.getStatus())
         .addParameter("location", this.getLocation())
-        .addParameter("date", this.getDate())
+        .addParameter("date", this.createDate())
         .addParameter("description", this.getDescription())
         .executeUpdate()
         .getKey();
