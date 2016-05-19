@@ -1,0 +1,70 @@
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #map {
+    height: 100%;
+  }
+</style>
+<div id="map"></div>
+<script>
+  var map;
+  var infoContent = '<div class="">' +
+    '<h3 class="well">This is a test, yo</h3>' +
+  '</div>';
+  var submitForm = '<form action="/cats" method="post">' + 
+  '<div class="form-group">' +
+    '<label for="name">Name:</label>' + 
+    '<input class="form-control" type="text" name="name" id="name">' + 
+  '</div>' + 
+  '<button type="submit" id="submitBtn" class="btn btn-primary">I\'M NOT FUCKING INSTALLING LINTER, JOHN</button>' +
+'</form>';
+
+  #foreach($location in $locations)
+    var loc$location.getId() = {lat: $location.getLat(), lng: $location.getLng()};
+  #end
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 45.527497, lng: -122.669188},
+      zoom: 12
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+      content: infoContent
+    });
+
+    #foreach($location in $locations)
+      var marker${location.getId()} = new google.maps.Marker({
+        position: loc$location.getId(),
+        map: map,
+        title: "Cat Location"
+      });
+      marker${location.getId()}.addListener('click', function() {
+        infowindow.open(map, marker${location.getId()});
+      });
+    #end
+
+    map.addListener('click', function(e) {
+      placeMarker(e.latLng, map)
+    });
+
+  }
+
+  function placeMarker(latLng, map) {
+    var marker = new google.maps.Marker({
+      position: latLng,
+      map: map
+    });
+    marker.addListener('click', function() {
+      var newWindow = new google.maps.InfoWindow({
+        content: submitForm
+      });
+      newWindow.open(map, marker);
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlgCyOpSc_NyGh-3tqIoqcLUxki2KAv1w&callback=initMap"
+async defer></script>

@@ -1,28 +1,93 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-3 sidebar">
+    <div class="col-sm-4 sidebar">
+       <h3>Add User</h3>
+       <form action="/user/new" method="post">
+         <div class="form-group">
+           <input class="form-control" type="text" id="name" name="name" placeholder="Username:"></input>
+         </div>
+         <input type="hidden" name="idCat" value="$cat.getId()"></input>
+         <button type="submit" class="btn">Submit</button>
+       </form>
       <h1 class="text-center">Add Cat<h1>
-      <form class="form-control" action="/cats/new" method="post">
-        <div class="">
-          <label for="catName">Cat Name:</label>
-          <input type="text" id="catName" name="catName">
-
-          <label for="catLocation">Cat Location:</label>
-          <input type="text" id="catLocation" name="catLocation">
-
-          <label for="catDescription">Cat Description:</label>
-          <input type="text" id="catDescription" name="catDescription">
-
-          <p>UPLOAD PICTURE</p>
+      <form action="/cats/new" method="post">
+        <div class="form-group">
+          <select class="form-control" name="idUser" id="idUser">
+            <option name="idUser" selected="selected" disabled>Select username:</option>
+            #foreach ($user in $users)
+              <option name="idUser" value="$user.getId()">$user.getName()</option>
+            #end
+          </select>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" id="catName" name="catName" placeholder="Cat Name:">
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="catDescription" id="catDescription">
+            <option name="catDescription" selected="selected" disabled>Select style:</option>
+            <option name="catDescription" value="Orange">Orange</option>
+            <option name="catDescription" value="Tuxedo">Tuxedo</option>
+            <option name="catDescription" value="Grey">Grey</option>
+            <option name="catDescription" value="Siamese">Siamese</option>
+            <option name="catDescription" value="Black">Black</option>
+            <option name="catDescription" value="White">White</option>
+            <option name="catDescription" value="Calico">Calico</option>
+            <option name="catDescription" value="Tortoise Shell">Tortoise Shell</option>
+            <option name="catDescription" value="Tabby">Tabby</option>
+            <option name="catDescription" value="Maine Coon">Maine Coon</option>
+            <option name="catDescription" value="Unknown">Unknown</option>
+          </select>
+        </div>
+        <input type="hidden" name="catLocation" id="catLocation">
+        <div id="map-div">
+          <div id="map"></div>
         </div>
         <button type="submit" class="btn">Submit</button>
+      </form>
     </div>
     <div class="col-sm-8">
       <h2 class="text-center">CATZ</h2>
       #foreach ($cat in $cats)
-        <li><a href="/cats/cat.getId()">$cat.getName()</a>
+        <p class="text-center"><img href="$cat.image()" alt="picture of a cat"></img></p>
+        <p class="text-center"><a href="/cat/$cat.getId()">$cat.getName()</a><p>
       #end
+        <script>
+          var map;
+          var newLocationWindow = '<p>This will be the cat\'s location.</p>';
+
+          function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 45.527497, lng: -122.669188},
+              zoom: 12
+            });
+
+            var infowindow = new google.maps.InfoWindow({
+              content: newLocationWindow
+            });
+
+            map.addListener('click', function(e) {
+              placeMarker(e.latLng, map)
+            });
+
+            var marker;
+            function placeMarker(latLng, map) {
+              if ( marker ) {
+                marker.setPosition(latLng);
+              } else {
+                marker = new google.maps.Marker({
+                  position: latLng,
+                  map: map
+                });
+              }
+              document.getElementById("catLocation").value = latLng;
+            }
+
+          }
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlgCyOpSc_NyGh-3tqIoqcLUxki2KAv1w&callback=initMap"
+        async defer></script>
     </div>
   </div>
 </div>

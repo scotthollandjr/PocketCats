@@ -1,46 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
 
+  <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/bootstrap.css">
     <link rel="stylesheet" href="/app.css">
-    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-    <title>GOTTA CAT 'EM ALL</title>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Gotta cat 'em all</title>
   </head>
+
   <body>
-    <nav class="navbar navbar-default navbarStyles">
-      <div class="container-fluid">
-
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">pOkYcAtZ</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li><a href="/cats">Cats <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">PLACEHOLDER</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
-
-          </ul>
-          ## This is a (single-line) comment in velocity notation.
-          #*
-            This is a block comment in velocity notation.
-            Will support multiple lines of text.
-          *#
-        </div>
+    <nav class="navbar navbar-default navbarStyle">
+      <div class="header">
+        <i class="material-icons" style="font-size:64px;color:#78B6C6">place</i>
+        <strong class="siteLabel">PocketCats</strong>
+        <span class="navLinks">
+          <button><a href="/search">Google Maps</a></button>
+          <button><a href="/cats">Enter A Lost Kitty</a></button>
+          <button><a href="/">Lost Kitties</a></button>
+        </span>
       </div>
     </nav>
-      #parse($template)
+
+      <div class="kitty">
+        #*<strong>Find Your Lost Kitty</strong>
+        <div class="container">
+            #parse($template)
+        </div>*#
+        <div class="kitty">
+          #parse($template)
+        </div>
+      </div>
+
   </body>
+
+  
+
 </html>

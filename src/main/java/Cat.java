@@ -2,22 +2,27 @@ import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import org.sql2o.*;
+import java.util.*;
 
 public class Cat {
   private int id;
   private String name;
   private Boolean status;
   private String location;
-  private LocalDateTime date;
+  private Date date;
   private String description;
+  private int user_id;
+  private String lat;
+  private String lng;
 
-  public Cat(String name, String description) {
+  public Cat(String name, String description, String location, Boolean status, int user_id) {
     this.id = id;
     this.name = name;
     this.status = status;
     this.location = location;
     this.date = date;
     this.description = description;
+    this.user_id = user_id;
   }
 
   public int getId() {
@@ -36,8 +41,13 @@ public class Cat {
     return location;
   }
 
-  public LocalDateTime getDate() {
+  public Date getDate() {
     return date;
+  }
+
+  public Date createDate() {
+    java.util.Date newDate = new java.util.Date();
+    return newDate;
   }
 
   public String getDescription() {
@@ -71,7 +81,7 @@ public class Cat {
         .addParameter("name", this.getName())
         .addParameter("status", this.getStatus())
         .addParameter("location", this.getLocation())
-        .addParameter("date", this.getDate())
+        .addParameter("date", this.createDate())
         .addParameter("description", this.getDescription())
         .executeUpdate()
         .getKey();
@@ -79,7 +89,7 @@ public class Cat {
   }
 
   public static Cat find(int id) {
-    String sql = "SELECT * FROM cats WHERE id=:id";
+    String sql = "SELECT id, name, status, location, date, description FROM cats WHERE id=:id";
     try (Connection con = DB.sql2o.open()) {
       Cat cat = con.createQuery(sql)
         .addParameter("id", id)
@@ -161,6 +171,15 @@ public class Cat {
       return con.createQuery(sql)
         .addParameter("id", this.id)
         .executeAndFetch(Comment.class);
+    }
+  }
+
+  public static List<Cat> getByStyle(String style) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM cats WHERE description=:description";
+      return con.createQuery(sql)
+        .addParameter("description", style)
+        .executeAndFetch(Cat.class);
     }
   }
 
