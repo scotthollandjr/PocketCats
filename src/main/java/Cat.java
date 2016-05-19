@@ -183,4 +183,12 @@ public class Cat {
     }
   }
 
+  public static List<String> allLocations() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT location FROM cats";
+      return con.createQuery(sql)
+        .executeAndFetch(String.class);
+    }
+  }
+
 }

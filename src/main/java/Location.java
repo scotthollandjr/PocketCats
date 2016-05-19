@@ -4,35 +4,24 @@ import java.time.LocalDateTime;
 import org.sql2o.*;
 
 public class Location {
-  private int id;
-  private String lat;
-  private String lng;
+  private String latLng;
   private int cat_id;
 
-  public Location(String lat, String lng, int cat_id) {
-    this.lat = lat;
-    this.lng = lng;
-    this.cat_id = cat_id;
+  public Location(String location, int id) {
+    this.latLng = location;
+    this.cat_id = id;
   }
 
-  public int getId() {
-    return id;
-  }
-
-  public String getLat() {
-    return lat;
-  }
-
-  public String getLng() {
-    return lng;
-  }
-
-  public int getCatId() {
+  public int getCat_id() {
     return cat_id;
   }
 
+  public String getLatLng() {
+    return latLng;
+  }
+
   public static List<Location> all() {
-    String sql = "SELECT id, lat, lng, cat_id FROM locations";
+    String sql = "SELECT id, location FROM cats";
     try (Connection con = DB.sql2o.open()) {
       return con.createQuery(sql)
         .executeAndFetch(Location.class);
@@ -45,27 +34,24 @@ public class Location {
       return false;
     } else {
       Location newLocation = (Location) otherLocation;
-      return this.getId() == newLocation.getId() &&
-             this.getLat().equals(newLocation.getLat()) &&
-             this.getLng().equals(newLocation.getLng()) &&
-             this.getCatId() == newLocation.getCatId();
+      return this.getCat_id() == newLocation.getCat_id() &&
+             this.getLatLng().equals(newLocation.getLatLng());
     }
   }
 
-  public void save() {
-    String sql = "INSERT INTO locations (lat, lng, cat_id) VALUES (:lat, :lng, :cat_id)";
-    try (Connection con = DB.sql2o.open()) {
-      this.id = (int) con.createQuery(sql, true)
-        .addParameter("lat", this.getLat())
-        .addParameter("lng", this.getLng())
-        .addParameter("cat_id", this.getCatId())
-        .executeUpdate()
-        .getKey();
-    }
-  }
+  // public void save() {
+  //   String sql = "INSERT INTO locations (lat, lng, cat_id) VALUES (:lat, :lng, :cat_id)";
+  //   try (Connection con = DB.sql2o.open()) {
+  //     this.id = (int) con.createQuery(sql, true)
+  //       .addParameter("lat", this.getLatLng())
+  //       .addParameter("cat_id", this.getCatId())
+  //       .executeUpdate()
+  //       .getKey();
+  //   }
+  // }
 
   public static Location find(int id) {
-    String sql = "SELECT * FROM locations WHERE id=:id";
+    String sql = "SELECT id, location FROM cats WHERE id=:id";
     try (Connection con = DB.sql2o.open()) {
       Location location = con.createQuery(sql)
         .addParameter("id", id)
