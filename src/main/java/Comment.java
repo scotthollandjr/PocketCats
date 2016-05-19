@@ -12,8 +12,8 @@ public class Comment {
   private int user_id;
   private int cat_id;
 
-  public Comment(String description, String username) {
-    this.username = username;
+  public Comment(String description, int user_id) {
+    this.user_id = user_id;
     this.description = description;
     this.date = date;
   }
@@ -28,6 +28,10 @@ public class Comment {
 
   public String getUsername() {
     return username;
+  }
+
+  public int getUser_id() {
+    return user_id;
   }
 
   public Date getDate() {

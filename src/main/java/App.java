@@ -69,7 +69,7 @@ public class App {
       int userId = Integer.parseInt(request.queryParams("idUser"));
       String username = (User.find(userId)).getName();
       String description = request.queryParams("description");
-      Comment newComment = new Comment(description, username);
+      Comment newComment = new Comment(description, userId);
       newComment.saveToCatAndUser(catId, userId);
       response.redirect("/cat/" + catId);
       return null;

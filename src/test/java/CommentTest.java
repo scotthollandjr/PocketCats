@@ -33,7 +33,9 @@ public class CommentTest {
     Comment newComment = new Comment("This cat rules!", "AwesomeUser_420");
     Cat newCat = new Cat("Appa", "Siamese", "", false, 1);
     newCat.save();
-    newComment.saveToCatAndUser(newCat.getId(), 1);
+    User newUser = new User("AwesomeUser_420");
+    newUser.save();
+    newComment.saveToCatAndUser(newCat.getId(), newUser.getId());
     assertTrue(Comment.all().get(0).equals(newComment));
   }
 
@@ -42,7 +44,9 @@ public class CommentTest {
     Comment newComment = new Comment("This cat rules!", "AwesomeUser_420");
     Cat newCat = new Cat("Appa", "Siamese", "", false, 1);
     newCat.save();
-    newComment.saveToCatAndUser(newCat.getId(), 1);
+    User newUser = new User("AwesomeUser_420");
+    newUser.save();
+    newComment.saveToCatAndUser(newCat.getId(), newUser.getId());
     assertEquals(newComment.getId(), Comment.all().get(0).getId());
   }
 
@@ -51,7 +55,9 @@ public class CommentTest {
     Comment newComment = new Comment("This cat rules!", "AwesomeUser_420");
     Cat newCat = new Cat("Appa", "Siamese", "", false, 1);
     newCat.save();
-    newComment.saveToCatAndUser(newCat.getId(), 1);
+    User newUser = new User("AwesomeUser_420");
+    newUser.save();
+    newComment.saveToCatAndUser(newCat.getId(), newUser.getId());
     Comment savedComment = Comment.all().get(0);
     assertEquals(savedComment, Comment.find(newComment.getId()));
   }
@@ -61,7 +67,9 @@ public class CommentTest {
     Comment newComment = new Comment("This cat rules!", "AwesomeUser_420");
     Cat newCat = new Cat("Appa", "Siamese", "", false, 1);
     newCat.save();
-    newComment.saveToCatAndUser(newCat.getId(), 1);
+    User newUser = new User("AwesomeUser_420");
+    newUser.save();
+    newComment.saveToCatAndUser(newCat.getId(), newUser.getId());
     newComment.delete();
     assertEquals(0, Comment.all().size());
   }
