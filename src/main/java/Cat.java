@@ -15,7 +15,7 @@ public class Cat {
   private String lat;
   private String lng;
 
-  public Cat(String name, String description, Boolean status, int user_id) {
+  public Cat(String name, String description, String location, Boolean status, int user_id) {
     this.id = id;
     this.name = name;
     this.status = status;

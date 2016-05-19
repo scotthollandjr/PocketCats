@@ -52,10 +52,10 @@ public class App {
       int userId = Integer.parseInt(request.queryParams("idUser"));
       String name = request.queryParams("catName");
       String description = request.queryParams("catDescription");
-      //String location = request.queryParams("catLocation");
+      String location = request.queryParams("catLocation");
       //String date = request.queryParams("catDate");
       Boolean status = false;
-      Cat newCat = new Cat(name, description, status, userId);
+      Cat newCat = new Cat(name, description, location, status, userId);
       newCat.save();
       User newUser = User.find(userId);
       newUser.addCat(newCat);
