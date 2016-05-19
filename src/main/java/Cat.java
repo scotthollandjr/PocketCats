@@ -69,7 +69,8 @@ public class Cat {
     } else {
       Cat newCat = (Cat) otherCat;
       return this.getName().equals(newCat.getName()) &&
-             this.getId() == newCat.getId();
+             this.getId() == newCat.getId() && 
+             this.getDescription().equals(newCat.getDescription());
     }
   }
 
