@@ -12,6 +12,8 @@ public class Cat {
   private Date date;
   private String description;
   private int user_id;
+  private String lat;
+  private String lng;
 
   public Cat(String name, String description, Boolean status, int user_id) {
     this.id = id;
