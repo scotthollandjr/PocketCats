@@ -11,19 +11,18 @@
       zoom: 12
     });
 
-    var infowindow = new google.maps.InfoWindow({
-      content: infoContent
-    });
-
     #foreach( $cat in $cats)
       #if ( $cat.getLocation() ) {
+        var popupWindow$cat.getId() = new google.maps.InfoWindow({
+          content: '<a href="/cat/$cat.getId()">$cat.getName()</a>'
+        });
         var marker${cat.getId()} = new google.maps.Marker({
           position: new google.maps.LatLng${cat.getLocation()} ,
           map: map,
           title: "${cat.getName()}"
         });
         marker${cat.getId()}.addListener('click', function() {
-          window.location.href = 'http://localhost:4567/cat/$cat.getId()';
+          popupWindow${cat.getId()}.open(map, marker${cat.getId()});
         });
       }
       #end

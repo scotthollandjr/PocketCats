@@ -56,6 +56,20 @@ public class Cat {
     return description;
   }
 
+  // public User getUser() {
+  //   String sql = "SELECT users.* FROM cats " +
+  //     "JOIN cats_users ON (cats.id = cats_users.cat_id) " +
+  //     "JOIN users ON (users.id = cats_users.user_id) " +
+  //     "WHERE cats.id = :id;";
+  //   try (Connection con = DB.sql2o.open()) {
+  //     User user = con.createQuery(sql)
+  //       .addParameter("id" = this.id)
+  //       .executeAndFetchFirst(User.class);
+  //     return user;
+  //   }
+  //
+  // }
+
 
   public String getImage() {
       return image;
