@@ -105,8 +105,10 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       User thisUser = User.find(Integer.parseInt(request.params(":id")));
       model.put("thisUser", thisUser);
+      model.put("cats", thisUser.getCats());
       model.put("users", User.all());
       model.put("template", "templates/search.vtl");
+      model.put("catmap", "templates/catmap.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
