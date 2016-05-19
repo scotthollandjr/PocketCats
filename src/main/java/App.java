@@ -41,8 +41,6 @@ public class App {
     get("/catmap", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/catmap.vtl");
-      List<Location> locations = Location.all();
-      model.put("locations", locations);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -90,8 +88,6 @@ public class App {
       model.put("users", User.all());
       model.put("template", "templates/search.vtl");
       model.put("catmap", "templates/catmap.vtl");
-      List<Location> locations = Location.all();
-      model.put("locations", locations);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -108,6 +104,7 @@ public class App {
       model.put("thisUser", thisUser);
       model.put("users", User.all());
       model.put("template", "templates/search.vtl");
+      model.put("catmap", "templates/catmap.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -126,9 +123,10 @@ public class App {
       String style = request.params(":style");
       model.put("style", style);
       List<Cat> styles = Cat.getByStyle(style);
-      model.put("styles", styles);
+      model.put("cats", styles);
       model.put("users", User.all());
       model.put("template", "templates/search.vtl");
+      model.put("catmap", "templates/catmap.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 

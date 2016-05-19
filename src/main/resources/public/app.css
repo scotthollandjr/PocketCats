@@ -80,3 +80,7 @@ footer a:hover {
 #map-div {
   height: 200px;
 }
+
+a {
+  text-decoration: none!important;
+}

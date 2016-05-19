@@ -54,6 +54,13 @@ public class Cat {
     return description;
   }
 
+  public String[] getLocationArray() {
+    String locationOriginal = this.getLocation();
+    String locationString = locationOriginal.replaceAll("(,)", "");
+    String[] locationArray = locationString.split(" ");
+    return locationArray;
+  }
+
   public static List<Cat> all() {
     String sql = "SELECT id, name, status, location, date, description FROM cats";
     try (Connection con = DB.sql2o.open()) {

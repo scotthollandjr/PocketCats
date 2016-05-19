@@ -15,7 +15,53 @@
       <p>Type: $cat.getDescription()</p>
       <p>Logged: $cat.getDate()</p>
       <p>By: $cat.getUsers().get(0).getName()</p>
-      <p>[Small map showing location]</p>
+      <div id="map-div">
+        <div id="map"></div>
+      </div>
+      <script>
+        var map;
+        var newLocationWindow = '<p>This will be the cat\'s location.</p>';
+
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: new google.maps.LatLng${cat.getLocation()},
+            zoom: 14
+          });
+
+          var infowindow = new google.maps.InfoWindow({
+            content: newLocationWindow
+          });
+
+          #if ( $cat.getLocation() ) {
+            var marker${cat.getId()} = new google.maps.Marker({
+              position: new google.maps.LatLng${cat.getLocation()} ,
+              map: map,
+              title: "${cat.getName()}"
+            });
+            marker${cat.getId()}.addListener('click', function() {
+              infowindow.open(map, marker${cat.getId()});
+            });
+          }
+          #end
+
+      }
+
+      function placeMarker(latLng, map) {
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: map
+        });
+        marker.addListener('click', function() {
+          var newWindow = new google.maps.InfoWindow({
+            content: submitForm
+          });
+          newWindow.open(map, marker);
+        });
+      }
+
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlgCyOpSc_NyGh-3tqIoqcLUxki2KAv1w&callback=initMap"
+      async defer></script>
     </div>
     <div class="col-sm-7 boxModel">
       <h3>Add Comment</h3>
