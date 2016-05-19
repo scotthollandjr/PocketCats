@@ -74,7 +74,9 @@ footer a:hover {
   margin-right: 30px;
   margin-top: 50px;
 }
-
+#map {
+  height:100%;
+}
 #map-div {
   height: 200px;
 }

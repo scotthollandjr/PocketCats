@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-3 sidebar">
+    <div class="col-sm-4 sidebar">
        <h3>Add User</h3>
        <form action="/user/new" method="post">
          <div class="form-group">
@@ -40,6 +40,9 @@
           </select>
         </div>
         <input type="hidden" name="catLocation" id="catLocation">
+        <div id="map-div">
+          <div id="map"></div>
+        </div>
         <button type="submit" class="btn">Submit</button>
       </form>
     </div>
@@ -49,18 +52,6 @@
         <p class="text-center"><img href="$cat.image()" alt="picture of a cat"></img></p>
         <p class="text-center"><a href="/cat/$cat.getId()">$cat.getName()</a><p>
       #end
-      <div id="map-div">
-        <style>
-          html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-          }
-          #map {
-            height: 100%;
-          }
-        </style>
-        <div id="map"></div>
         <script>
           var map;
           var newLocationWindow = '<p>This will be the cat\'s location.</p>';
@@ -97,7 +88,6 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlgCyOpSc_NyGh-3tqIoqcLUxki2KAv1w&callback=initMap"
         async defer></script>
-      </div>
     </div>
   </div>
 </div>
