@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="col-sm-3 sidebar">
@@ -47,7 +46,6 @@
     <div class="col-sm-8">
       <h2 class="text-center">CATZ</h2>
       #foreach ($cat in $cats)
-        <p class="text-center"><img href="$cat.image()" alt="picture of a cat"></img></p>
         <p class="text-center"><a href="/cat/$cat.getId()">$cat.getName()</a><p>
       #end
       <div id="map-div">
@@ -123,7 +121,6 @@
             }
           }
         </script>
-
     </div>
   </div>
 </div>
