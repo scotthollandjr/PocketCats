@@ -53,9 +53,10 @@ public class App {
       String name = request.queryParams("catName");
       String description = request.queryParams("catDescription");
       String location = request.queryParams("catLocation");
-      //String date = request.queryParams("catDate");
+      String image = request.queryParams("testUpload");
+      
       Boolean status = false;
-      Cat newCat = new Cat(name, description, location, status, userId);
+      Cat newCat = new Cat(name, description, location, status, userId, image);
       newCat.save();
       User newUser = User.find(userId);
       newUser.addCat(newCat);

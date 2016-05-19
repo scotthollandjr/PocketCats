@@ -40,6 +40,7 @@
           </select>
         </div>
         <input type="hidden" name="catLocation" id="catLocation">
+        <input type="hidden" name="testUpload" id="testUpload">
         <button type="submit" class="btn">Submit</button>
       </form>
     </div>
@@ -97,7 +98,32 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlgCyOpSc_NyGh-3tqIoqcLUxki2KAv1w&callback=initMap"
         async defer></script>
-      </div>
+    </div>
+        <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+        <div id="imgTest"></div>
+        <script type='text/javascript'>
+          function encodeImageFileAsURL() {
+
+            var filesSelected = document.getElementById("inputFileToLoad").files;
+            if (filesSelected.length > 0) {
+              var fileToLoad = filesSelected[0];
+
+              var fileReader = new FileReader();
+
+              fileReader.onload = function(fileLoadedEvent) {
+                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                var newImage = document.createElement('img');
+                newImage.src = srcData;
+
+                document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+                document.getElementById("testUpload").value = srcData;
+              }
+              fileReader.readAsDataURL(fileToLoad);
+            }
+          }
+        </script>
+
     </div>
   </div>
 </div>
