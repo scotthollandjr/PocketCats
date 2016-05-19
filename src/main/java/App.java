@@ -125,8 +125,9 @@ public class App {
       String style = request.params(":style");
       model.put("style", style);
       List<Cat> styles = Cat.getByStyle(style);
-      model.put("styles", styles);
+      model.put("cats", styles);
       model.put("users", User.all());
+      model.put("catmap", "templates/catmap.vtl");
       model.put("template", "templates/search.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
