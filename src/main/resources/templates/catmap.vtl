@@ -23,7 +23,7 @@
           title: "${cat.getName()}"
         });
         marker${cat.getId()}.addListener('click', function() {
-          infowindow.open(map, marker${cat.getId()});
+          window.location.href = 'http://localhost:4567/cat/$cat.getId()';
         });
       }
       #end
