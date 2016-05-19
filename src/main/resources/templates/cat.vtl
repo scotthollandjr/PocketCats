@@ -5,7 +5,7 @@
   </div>
   <div class="row">
     <div class="col-sm-4 boxModel">
-      <img src="$cat.getImage()" alt="image of pokeycat" class="imgFrontPage"></img>
+        <imageTest id="imageTest"></imageTest>
       <br>
       #if ($cat.getStatus())
         <p>This cat is: <span id="notStray">Claimed</span></p>
@@ -97,3 +97,8 @@
     </div>
   </div>
 </div>
+
+<script>var image = new Image();
+image.src = "$cat.getImage()";
+document.getElementById('imageTest').appendChild(image);
+</script>

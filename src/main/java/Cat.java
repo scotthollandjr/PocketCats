@@ -14,8 +14,9 @@ public class Cat {
   private int user_id;
   private String lat;
   private String lng;
+  private String image;
 
-  public Cat(String name, String description, String location, Boolean status, int user_id) {
+  public Cat(String name, String description, String location, Boolean status, int user_id, String image) {
     this.id = id;
     this.name = name;
     this.status = status;
@@ -23,6 +24,7 @@ public class Cat {
     this.date = date;
     this.description = description;
     this.user_id = user_id;
+    this.image = image;
   }
 
   public int getId() {
@@ -54,15 +56,13 @@ public class Cat {
     return description;
   }
 
-  public String[] getLocationArray() {
-    String locationOriginal = this.getLocation();
-    String locationString = locationOriginal.replaceAll("(,)", "");
-    String[] locationArray = locationString.split(" ");
-    return locationArray;
+
+  public String getImage() {
+      return image;
   }
 
   public static List<Cat> all() {
-    String sql = "SELECT id, name, status, location, date, description FROM cats";
+    String sql = "SELECT id, name, status, location, date, description, image FROM cats";
     try (Connection con = DB.sql2o.open()) {
       return con.createQuery(sql)
         .executeAndFetch(Cat.class);
@@ -82,7 +82,7 @@ public class Cat {
 
 
   public void save() {
-    String sql = "INSERT INTO cats (name, status, location, date, description) VALUES (:name, :status, :location, :date, :description)";
+    String sql = "INSERT INTO cats (name, status, location, date, description, image) VALUES (:name, :status, :location, :date, :description, :image)";
     try (Connection con = DB.sql2o.open()) {
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.getName())
@@ -90,13 +90,14 @@ public class Cat {
         .addParameter("location", this.getLocation())
         .addParameter("date", this.createDate())
         .addParameter("description", this.getDescription())
+        .addParameter("image", this.getImage())
         .executeUpdate()
         .getKey();
     }
   }
 
   public static Cat find(int id) {
-    String sql = "SELECT id, name, status, location, date, description FROM cats WHERE id=:id";
+    String sql = "SELECT id, name, status, location, date, description, image FROM cats WHERE id=:id";
     try (Connection con = DB.sql2o.open()) {
       Cat cat = con.createQuery(sql)
         .addParameter("id", id)
