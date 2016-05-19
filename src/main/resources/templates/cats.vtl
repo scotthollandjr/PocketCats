@@ -43,7 +43,10 @@
         <div id="map-div">
           <div id="map"></div>
         </div>
-
+        <div class="form-group">
+          <input class="form-control" id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
+          <div type="hidden" class="hidden" id="imgTest"></div>
+        </div>
         <input type="hidden" name="testUpload" id="testUpload">
         <button type="submit" class="btn">Submit</button>
       </form>
@@ -91,30 +94,28 @@
         async defer></script>
 
     </div>
-        <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" />
-        <div id="imgTest"></div>
-        <script type='text/javascript'>
-          function encodeImageFileAsURL() {
+    <script type='text/javascript'>
+      function encodeImageFileAsURL() {
 
-            var filesSelected = document.getElementById("inputFileToLoad").files;
-            if (filesSelected.length > 0) {
-              var fileToLoad = filesSelected[0];
+        var filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+          var fileToLoad = filesSelected[0];
 
-              var fileReader = new FileReader();
+          var fileReader = new FileReader();
 
-              fileReader.onload = function(fileLoadedEvent) {
-                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+          fileReader.onload = function(fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
-                var newImage = document.createElement('img');
-                newImage.src = srcData;
+            var newImage = document.createElement('img');
+            newImage.src = srcData;
 
-                document.getElementById("imgTest").innerHTML = newImage.outerHTML;
-                document.getElementById("testUpload").value = srcData;
-              }
-              fileReader.readAsDataURL(fileToLoad);
-            }
+            document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+            document.getElementById("testUpload").value = srcData;
           }
-        </script>
+          fileReader.readAsDataURL(fileToLoad);
+        }
+      }
+    </script>
     </div>
   </div>
 </div>

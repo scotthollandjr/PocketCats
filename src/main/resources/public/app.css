@@ -90,3 +90,7 @@ a {
   margin-left: auto;
   margin-right: auto;
 }
+
+.profilePic img {
+  width: 290px;
+}
