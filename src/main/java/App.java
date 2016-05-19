@@ -102,6 +102,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       User thisUser = User.find(Integer.parseInt(request.params(":id")));
       model.put("thisUser", thisUser);
+      model.put("cats", thisUser.getCats());
       model.put("users", User.all());
       model.put("template", "templates/search.vtl");
       model.put("catmap", "templates/catmap.vtl");
@@ -125,6 +126,7 @@ public class App {
       List<Cat> styles = Cat.getByStyle(style);
       model.put("cats", styles);
       model.put("users", User.all());
+      model.put("catmap", "templates/catmap.vtl");
       model.put("template", "templates/search.vtl");
       model.put("catmap", "templates/catmap.vtl");
       return new ModelAndView(model, layout);
