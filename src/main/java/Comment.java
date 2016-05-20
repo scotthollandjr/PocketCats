@@ -61,8 +61,9 @@ public class Comment {
 
   public void saveToCatAndUser(int catInput, int userInput) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO comments (description, date, cat_id, user_id) VALUES (:description, :date, :cat_id, :user_id)";
+      String sql = "INSERT INTO comments (username, description, date, cat_id, user_id) VALUES (:username, :description, :date, :cat_id, :user_id)";
       this.id = (int) con.createQuery(sql, true)
+        .addParameter("username", this.getUsername())
         .addParameter("description", this.getDescription())
         .addParameter("date", this.getDate())
         .addParameter("cat_id", catInput)

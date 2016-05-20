@@ -110,7 +110,8 @@ CREATE TABLE comments (
     description character varying,
     user_id integer,
     cat_id integer,
-    date timestamp without time zone
+    date timestamp without time zone,
+    username character varying
 );
 
 
@@ -135,41 +136,6 @@ ALTER TABLE comments_id_seq OWNER TO "Guest";
 --
 
 ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
-
-
---
--- Name: locations; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
---
-
-CREATE TABLE locations (
-    id integer NOT NULL,
-    lat character varying,
-    lng character varying,
-    cat_id integer
-);
-
-
-ALTER TABLE locations OWNER TO "Guest";
-
---
--- Name: location_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
---
-
-CREATE SEQUENCE location_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE location_id_seq OWNER TO "Guest";
-
---
--- Name: location_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
---
-
-ALTER SEQUENCE location_id_seq OWNED BY locations.id;
 
 
 --
@@ -230,13 +196,6 @@ ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
-ALTER TABLE ONLY locations ALTER COLUMN id SET DEFAULT nextval('location_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
---
-
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -286,7 +245,9 @@ SELECT pg_catalog.setval('cats_users_id_seq', 6, true);
 -- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY comments (id, description, user_id, cat_id, date) FROM stdin;
+COPY comments (id, description, user_id, cat_id, date, username) FROM stdin;
+1	Awesome	2	5	2016-05-20 09:22:24.92	\N
+2	MODGHIDOSGHESDhiids	3	1	2016-05-20 09:42:07.464	MoDeezNUts
 \.
 
 
@@ -294,22 +255,7 @@ COPY comments (id, description, user_id, cat_id, date) FROM stdin;
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('comments_id_seq', 1, false);
-
-
---
--- Name: location_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
---
-
-SELECT pg_catalog.setval('location_id_seq', 2, true);
-
-
---
--- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: Guest
---
-
-COPY locations (id, lat, lng, cat_id) FROM stdin;
-\.
+SELECT pg_catalog.setval('comments_id_seq', 2, true);
 
 
 --
@@ -352,14 +298,6 @@ ALTER TABLE ONLY cats_users
 
 ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
-
-
---
--- Name: location_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
---
-
-ALTER TABLE ONLY locations
-    ADD CONSTRAINT location_pkey PRIMARY KEY (id);
 
 
 --
