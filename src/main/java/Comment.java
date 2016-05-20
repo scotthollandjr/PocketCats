@@ -35,8 +35,12 @@ public class Comment {
     return date;
   }
 
+  public int getUser_id() {
+    return user_id;
+  }
+
   public static List<Comment> all() {
-    String sql = "SELECT id, user_id, description, username, date FROM comments";
+    String sql = "SELECT id, description, user_id, cat_id, date FROM comments";
     try (Connection con = DB.sql2o.open()) {
       return con.createQuery(sql)
         .executeAndFetch(Comment.class);
@@ -50,7 +54,6 @@ public class Comment {
     } else {
       Comment newComment = (Comment) otherComment;
       return this.getDescription().equals(newComment.getDescription()) &&
-      this.getUsername().equals(newComment.getUsername()) &&
              this.getId() == newComment.getId();
     }
   }
@@ -58,9 +61,8 @@ public class Comment {
 
   public void saveToCatAndUser(int catInput, int userInput) {
     try (Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO comments (username, description, date, cat_id, user_id) VALUES (:username, :description, :date, :cat_id, :user_id)";
+      String sql = "INSERT INTO comments (description, date, cat_id, user_id) VALUES (:description, :date, :cat_id, :user_id)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("username", this.getUsername())
         .addParameter("description", this.getDescription())
         .addParameter("date", this.getDate())
         .addParameter("cat_id", catInput)
