@@ -12,7 +12,7 @@ public class CatTest {
 
   @Test
   public void Cat_instantiatesCorrectly_true() {
-    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     assertEquals(true, newCat instanceof Cat);
   }
 
@@ -23,28 +23,28 @@ public class CatTest {
 
   @Test
   public void equals_returnTrueIdCatsAreTheSame() {
-    Cat newCat = new Cat("Appa", "Siamese");
-    Cat newerCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
+    Cat newerCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     assertTrue(newCat.equals(newerCat));
   }
 
   @Test
   public void save_savesToCatDatabase() {
-    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     newCat.save();
     assertTrue(Cat.all().get(0).equals(newCat));
   }
 
   @Test
   public void save_saveAssignsIdToObject() {
-    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     newCat.save();
     assertEquals(newCat.getId(), Cat.all().get(0).getId());
   }
 
   @Test
   public void find_findCatInDatabase() {
-    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     newCat.save();
     Cat savedCat = Cat.all().get(0);
     assertEquals(savedCat.getName(), Cat.find(newCat.getId()).getName());
@@ -52,7 +52,7 @@ public class CatTest {
 
   @Test
   public void updateName_updateCatNameInDatabase() {
-    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     newCat.save();
     newCat.updateName("Stevens");
     assertEquals("Stevens", Cat.all().get(0).getName());
@@ -60,7 +60,7 @@ public class CatTest {
 
   @Test
   public void delete_deletesObject() {
-    Cat newCat = new Cat("Appa", "Siamese");
+    Cat newCat = new Cat("Appa", "Siamese", "Under the bridge downtown", false, 1, "AHUIOFHOIUHGOUEDHGH.jpg");
     newCat.save();
     newCat.delete();
     assertEquals(0, Cat.all().size());
